@@ -30,7 +30,10 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     'scripts/packages/maven.sh' => default_args,
     'scripts/packages/gradle.sh' => default_args,
 
-    'scripts/packages/titan.sh' => default_args,
+    # As of March 2017, the recommended version of titan is titan-1.0.0-hadoop1
+    # See https://github.com/thinkaurelius/titan/wiki/Downloads (last updated Feb 4, 2016)
+    'scripts/packages/titan-1.0.0-hadoop1.sh' => default_args,
+
     'scripts/packages/elasticsearch.sh' => [shared_dir, VM_IP, ES_VER],
     'scripts/packages/cassandra.sh' => [shared_dir, VM_IP, CASS_VER],
 
