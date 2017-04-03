@@ -9,11 +9,11 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   config.vm.box = "ubuntu/xenial64"
 
-  config.vm.hostname = "titan"
+  config.vm.hostname = "janus-graph"
 
   config.vm.provider "virtualbox" do |v|
     v.memory = 2048
-    v.name = "titan"
+    v.name = "janus-graph"
   end
 
   config.vm.network :private_network, ip: VM_IP
@@ -30,9 +30,9 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     'scripts/packages/maven.sh' => default_args,
     'scripts/packages/gradle.sh' => default_args,
 
-    # As of March 2017, the recommended version of titan is titan-1.0.0-hadoop1
-    # See https://github.com/thinkaurelius/titan/wiki/Downloads (last updated Feb 4, 2016)
-    'scripts/packages/titan-1.0.0-hadoop1.sh' => default_args,
+    # The TitanGraph project has been taken up by JanusGraph.
+    # See https://github.com/JanusGraph/janusgraph/releases
+    'scripts/packages/janus-graph.sh' => default_args,
 
     'scripts/packages/elasticsearch.sh' => [shared_dir, VM_IP, ES_VER],
     'scripts/packages/cassandra.sh' => [shared_dir, VM_IP, CASS_VER],
