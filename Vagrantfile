@@ -25,17 +25,21 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     'scripts/bootstrap.sh' => default_args,
     'scripts/packages/vim.sh' => default_args,
     'scripts/packages/git.sh' => default_args,
+
+    # java8 etc
     'scripts/packages/java.sh' => default_args,
     'scripts/packages/java8.sh' => default_args,
     'scripts/packages/maven.sh' => default_args,
     'scripts/packages/gradle.sh' => default_args,
 
+    # Backend dependencies
+    'scripts/packages/berkeleydb.sh' => default_args,
+    'scripts/packages/elasticsearch.sh' => [shared_dir, VM_IP, ES_VER],
+    'scripts/packages/cassandra.sh' => [shared_dir, VM_IP, CASS_VER],
+
     # The TitanGraph project has been taken up by JanusGraph.
     # See https://github.com/JanusGraph/janusgraph/releases
     'scripts/packages/janus-graph.sh' => default_args,
-
-    'scripts/packages/elasticsearch.sh' => [shared_dir, VM_IP, ES_VER],
-    'scripts/packages/cassandra.sh' => [shared_dir, VM_IP, CASS_VER],
 
     'scripts/cleanup.sh' => default_args
   }
