@@ -30,7 +30,7 @@ gpg_add_key pgp.mit.edu 749D6EEC0353B12C
 sudo apt-get update
 
 # install
-sudo apt-get install -y cassandra
+sudo apt-get install -y --allow-unauthenticated cassandra
 
 # set listen host
 sudo sed --in-place "s/localhost/$HOST_IP/g" /etc/cassandra/cassandra.yaml

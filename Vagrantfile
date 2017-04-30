@@ -2,8 +2,22 @@
 VAGRANTFILE_API_VERSION = "2"
 
 VM_IP = "10.10.10.10"
-CASS_VER = "21x"
-ES_VER = "1.5.2"
+
+# JanusGraph 0.1.0 compatibility:
+# - Apache Cassandra 2.1.9
+# - Apache HBase 0.98.8-hadoop2, 1.0.3, 1.1.8, 1.2.4
+# - Google Cloud Bigtable 0.9.5.1
+# - BerkeleyJE 7.3.7
+# - Elasticsearch 1.5.1
+# - Apache Lucene 4.10.4
+# - Apache Solr 5.2.1
+# - Apache TinkerPop 3.2.3
+# - Java 1.8
+
+CASS_VER = "21x"  # cassandra
+
+ES_VER = "1.5.1"  # elasticsearch
+
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
@@ -27,8 +41,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     'scripts/packages/git.sh' => default_args,
 
     # java8 etc
-    'scripts/packages/java.sh' => default_args,
-    'scripts/packages/java8.sh' => default_args,
+    'scripts/packages/java.sh' => default_args,  # oracle java setup only
+    'scripts/packages/java8.sh' => default_args, # oracle java 8
     'scripts/packages/maven.sh' => default_args,
     'scripts/packages/gradle.sh' => default_args,
 
@@ -37,16 +51,19 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     'scripts/packages/elasticsearch.sh' => [shared_dir, VM_IP, ES_VER],
     'scripts/packages/cassandra.sh' => [shared_dir, VM_IP, CASS_VER],
 
-    # The TitanGraph project has been taken up by JanusGraph.
+    # JanusGraph distributed graph database
+    # Formerly the TitanGraph project, now migrated to JanusGraph.
     # See https://github.com/JanusGraph/janusgraph/releases
     'scripts/packages/janus-graph.sh' => default_args,
+
+    # TinkerPop3 compatible with JanusGraph
+    'scripts/packages/tinkerpop3.sh' => default_args,
 
     'scripts/cleanup.sh' => default_args
   }
 
-  packages.keys do |p|
-    args = packages[p].join(' ')
-    config.vm.provision "shell", path: p, args: args
+  packages.each_pair do |path, args|
+    config.vm.provision "shell", path: path, args: args
   end
 
 end
