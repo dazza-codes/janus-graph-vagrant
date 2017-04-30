@@ -3,14 +3,14 @@
 export shared_path=$1
 export HOST_IP=$2
 
-janus_ver="janusgraph-0.1.0-SNAPSHOT-hadoop2"
+janus_ver="janusgraph-0.1.0-hadoop2"
 
 [ -d $janus_ver ] && echo "Skipping JanusGraph" && exit
 
 # Download and Unpack janusgraph-0.1.0-SNAPSHOT-hadoop2
 echo "Installing JanusGraph"
-wget https://github.com/JanusGraph/janusgraph/releases/download/0.1.0-SNAPSHOT-2017-03-18/janusgraph-dist-0.1.0-20170319.135512-2.zip > /dev/null
-unzip janusgraph-dist-0.1.0-20170319.135512-2.zip
+wget https://github.com/JanusGraph/janusgraph/releases/download/v0.1.0/janusgraph-0.1.0-hadoop2.zip
+unzip janusgraph-0.1.0-hadoop2.zip
 
 # Clear existing conf file
 pushd $janus_ver
